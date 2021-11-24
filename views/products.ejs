@@ -1,0 +1,64 @@
+<%- include ('../views/partials/header', {loggedIn : loggedIn}) %>
+
+    <div id="main">
+        <div class="container my-5">
+            <div class="display-4 d-grid gap-2 col-8 mx-auto">
+                Farm21 Assesment Products
+            </div>
+            <div class="card-group ">
+                <div class="card">
+                    <div class="card-header">
+                        New Product
+                    </div>
+                    <div class="card-body">
+                        <form action="newProduct" method="post">
+                            <label for="newProductName">Name</label>
+                            <input class="form-control" type="text" name="name" id="newProductName" placeholder="Product Name, Max 100 characters" required maxlength="100">
+                            <label for="newProductDescription">Description</label>
+                            <input class="form-control" type="text" name="description" id="newProductDescription" placeholder="Product Description, Max 500 characters" required maxlength="500">
+                            <label for="newProductPrice">Price</label>
+                            <input class="form-control" step="0.01" type="number" name="" id="newProductPrice" min="0">
+                            <label for="newProductStock_id">Stock</label>
+                            <select name="stock_id" class="form-control" name="stock_id" id="newProductStock_id">
+                            <option value="1">Directly</option>
+                            <option value="2">Within 5 fays</option>
+                            <option value="3">Not in stock</option>
+                        </select>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary">Add New Product</button>
+                        </form>
+                    </div>
+                </div>
+                <%if(products && products.length){%>
+                    <div class="card-group">
+                        <%products.forEach(product=>{%>
+                            <div class="productDiv card m-3 " id="<%=product.id%>">
+                                <div class="card-header">
+                                    <%=product.name%>
+                                </div>
+                                <div class="card-body">
+                                    <label for="productName_<%=product.id%>">Name</label>
+                                    <input class="form-control" type="text" name="" id="productName_<%=product.id%>" value="<%=product.name%>">
+                                    <label for="productDescription_<%=product.id%>">Description</label>
+                                    <input class="form-control" type="text" name="" id="productDescription_<%=product.id%>" value="<%=product.description%>">
+                                    <label for="productPrice_<%=product.id%>">Price</label>
+                                    <input class="form-control" type="number" step="0.01" name="" id="productPrice_<%=product.id%>" value="<%=product.price%>">
+                                    <label for="productStock_id_<%=product.id%>">Stock ID</label>
+                                    <input class="form-control" type="number" name="" id="productStock_id_<%=product.id%>" value="<%=product.stock_id%>">
+                                </div>
+                                <div class="card-footer">
+                                    <form action="deleteProduct" method="post">
+                                        <input type="hidden" name="id" value="<%=product.id%>">
+                                        <button type="submit" class="btn btn-sm btn-danger" disabled>Delete Product</button>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                    <%})
+                    }%>
+            </div>
+        </div>
+        <script>
+        </script>
+    </div>

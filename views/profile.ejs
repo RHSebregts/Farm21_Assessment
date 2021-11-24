@@ -1,0 +1,84 @@
+<%- include ('../views/partials/header', {loggedIn : loggedIn}) %>
+
+    <div id="main">
+        <div class="container my-5">
+            <div class="display-4 d-grid gap-2 col-8 mx-auto">
+                Farm21 Assesment Profile
+            </div>
+
+            <div class="input-group">
+                <form class="mx-5" id="profileForm" action="../updateProfile" method="POST">
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Change Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="<%=profile.name%>" value="<%=profile.name%>" id="inputEmail" required aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Change Email address</label>
+                        <input type="email" class="form-control" name="email" placeholder="<%=profile.email%>" value="<%=profile.email%>" id="inputEmail" required aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label">Confirm New Email address</label>
+                        <input type="email" class="form-control" id="inputEmailCheck" required aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <div>
+                            <label for="inputPassword" class="form-label">New Password</label>
+                            <input type="password" name="password" class="form-control" required id="inputPassword">
+                            <div class="invalid-feedback">
+                                Please enter a valid password.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="inputPasswordCheck" class="form-label">Re-enter Password</label>
+                            <input type="password" name="password_confirmation" class="form-control" required id="inputPasswordCheck">
+                            <div class="invalid-feedback">
+                                Please enter a valid password and make sure the passwords match.
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <span class="h6"><em>Password must have a minimum of 8 characters and must contain an upper case letter, lower case letter, number and special character.</em>
+                    </span>
+                    </div>
+                    <button type="submit" form="profileForm" class="btn btn-primary mx-5">Submit</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            // Password validation
+            const inputPasswordCheck = document.getElementById('inputPasswordCheck')
+            const inputPassword = document.getElementById('inputPassword')
+            const checkPasswordMatch = (event) => {
+                if (event.target.value === inputPassword.value) {
+                    event.target.classList.remove('is-invalid')
+                    event.target.classList.add('is-valid')
+                } else {
+                    event.target.classList.add('is-invalid')
+                    event.target.classList.remove('is-valid')
+
+                }
+            }
+            inputPasswordCheck.addEventListener('input', checkPasswordMatch)
+
+            const passwordCheck = (password) => {
+                // Regex that checks if it does not contain a number, lowercase, uppercase, or symbol. regex,test FALSE = good.
+                const regex = new RegExp('^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$')
+                if (!regex.test(password)) {
+                    return true
+                }
+                return false
+            }
+            const inputPasswordBehavior = (event) => {
+                if (passwordCheck(event.target.value)) {
+                    inputPassword.classList.add('is-valid')
+                    inputPassword.classList.remove('is-invalid')
+                } else {
+                    inputPassword.classList.remove('is-valid')
+                    inputPassword.classList.add('is-invalid')
+
+                }
+            }
+            inputPassword.addEventListener('input', inputPasswordBehavior)
+        </script>
+    </div>

@@ -1,0 +1,35 @@
+<%- include ('../views/partials/header', {loggedIn : loggedIn}) %>
+
+    <div id="main">
+        <div class="container my-5">
+            <%if(loggedIn){%>
+                <div class="display-4 d-grid gap-2 col-8 mx-auto">
+                    Farm21 Assesment Home
+                    <div class="d-grid gap-5 col-4 my-5 p-3">
+                        <a href="profile" class="btn btn-lg btn-dark">View Profile</a>
+                        <a href="products" class="btn btn-lg btn-dark">View Products</a>
+                    </div>
+                </div>
+                <%}else{%>
+                    <div class="display-4 d-grid gap-2 col-6 mx-auto">
+                        Farm21 Assesment Login
+                    </div>
+                    <div class="input-group">
+                        <form class="mx-5" id="loginForm" action="../login" method="POST">
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" id="inputPassword">
+                            </div>
+                            <a href="../passwordHelp" class="">Password Help</a>
+                            <button type="submit" form="loginForm" class="btn btn-primary mx-5">Submit</button>
+                        </form>
+                    </div>
+                    <%}%>
+        </div>
+
+    </div>
